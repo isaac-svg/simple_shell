@@ -15,13 +15,13 @@ int _isalpha(int c)
 		return (0);
 }
 /**
- * is_cmd - determines if a file has an executable command
+ * is_command - determines if a file has an executable command
  * @info: The info struct
  * @path: Path to the file
  *
  * Return: 1 if true, 0 otherwise
  */
-int is_cmd(info__t *inform, char *path)
+int is_command(info__t *inform, char *path)
 {
 	struct stat t;
 
@@ -57,14 +57,14 @@ char *dup_chars(char *pathstr, int start, int stop)
 }
 
 /**
- * find_path - finds command in the PATH string
+ * locate_path - finds command in the PATH string
  * @inform: the inform struct
  * @pathstr: the PATH string
  * @cmd: The command to find
  *
  * Return: full path of cmd if found, NULL otherwise
  */
-char *find_path(info__t *inform, char *pathstr, char *cmd)
+char *locate_path(info__t *inform, char *pathstr, char *cmd)
 {
 	int a = 0;
 	int currpos = 0;
@@ -75,7 +75,7 @@ char *find_path(info__t *inform, char *pathstr, char *cmd)
 
 	if ((_strlen(cmd) > 2) && starts_with(cmd, "./"))
 	{
-		if (is_cmd(inform, cmd))
+		if (is_command(inform, cmd))
 			return (cmd);
 	}
 
@@ -93,7 +93,7 @@ char *find_path(info__t *inform, char *pathstr, char *cmd)
 				_strcat(path, cmd);
 			}
 
-			if (is_cmd(inform, path))
+			if (is_command(inform, path))
 				return (path);
 
 			if (!pathstr[a])
@@ -108,12 +108,12 @@ char *find_path(info__t *inform, char *pathstr, char *cmd)
 }
 
 /**
- * is_delim - checks if character is a delimeter
+ * is_delimiter - checks if character is a delimeter
  * @c: the char to check
  * @delim: the delimeter string
  * Return: 1 if true, 0 if false
  */
-int is_delim(char c, char *delim)
+int is_delimiter(char c, char *delim)
 {
 	while (*delim)
 		if (*delim++ == c)

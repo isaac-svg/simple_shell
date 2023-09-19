@@ -42,12 +42,12 @@ ssize_t input_buf(info__t *inform, char **buffer, size_t *len)
 }
 
 /**
- * get_input - gets a line minus the newline
+ * get_cmd - gets a line minus the newline
  * @inform: parameter struct
  *
  * Return: bytes read
  */
-ssize_t get_input(info__t *inform)
+ssize_t get_cmd(info__t *inform)
 {
 	static char *buffer;
 	static size_t a, j, len;

@@ -111,7 +111,7 @@ typedef struct builtin
 
 
 /* string functions */
-char *dup_chars(char *, int, int);
+char *dup_chars(char *str, int n, int m);
 int _strlen(char *str);
 char *_strchr(char *, char);
 char *starts_with(const char *needle, const char *haystack);
@@ -129,13 +129,13 @@ int _atoi(char *str);
 /* terminal, shell functions */
 char *_getenv(info__t *info, const char *);
 int _mysetenv(info__t *info);
-int is_delim(char c, char *str);
+int is_delimiter(char c, char *str);
 int _isalpha(int a);
 int _interactive(info__t *info);
-int loophsh(char **memblock);
+int shellengine(char **memblock);
 void remove_comments(char *comment);
 int _myunsetenv(info__t *info);
-ssize_t get_input(info__t *info);
+ssize_t get_cmd(info__t *info);
 int replace_variables(info__t *info);
 int replace_string(char **memarea, char *a);
 void check_chain(info__t *info, char *, size_t *, size_t, size_t);
@@ -143,7 +143,7 @@ int replace_alias(info__t *info);
 int is_chain(info__t *info, char *str, size_t *n);
 int _myexit(info__t *info);
 int _mycd(info__t *info);
-char *find_path(info__t *info, char *str1, char *str2);
+char *locate_path(info__t *info, char *str1, char *str2);
 int _myenv(info__t *info);
 int _getline(info__t *info, char **, size_t *);
 void sigintHandler(int n);
@@ -170,14 +170,14 @@ int _putsfd(char *str, int fd);
 
 
 /* system helper functions */
-void fork_cmd(info__t *info);
-int find_builtin(info__t *info);
+void fork_command(info__t *info);
+int locate_builtin(info__t *info);
 int _setenv(info__t *info, char *str1, char *str2);
-void find_cmd(info__t *info);
-int is_cmd(info__t *info, char *str);
+void find_command(info__t *info);
+int is_command(info__t *info, char *str);
 int _unsetenv(info__t *info, char *str);
 char **get_environ(info__t *info);
-int hsh(info__t *info, char **memblock);
+int shellfunc(info__t *info, char **memblock);
 int populate_env_list(info__t *info);
 
 /* helper functions */
@@ -215,7 +215,7 @@ void free_list(list__t **memarea);
 
 char **list_to_strings(list__t *cmdptr);
 ssize_t get_node_index(list__t *cmdptr, list__t *);
-size_t list_len(const list__t *cmdptr);
+size_t get_len(const list__t *cmdptr);
 size_t print_list(const list__t *cmdptr);
 int print_alias(list__t *aliasNode);
 list__t *node_starts_with(list__t *cmdptr, char *str, char c);

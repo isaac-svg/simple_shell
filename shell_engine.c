@@ -1,13 +1,13 @@
 #include "shell.h"
 
 /**
- * hsh - main shell loop
+ * shellfunc - main shell loop
  * @info: the parameter
  * @argv: the argument vector
  *
  * Return: 0 on success, 1 on error, or error code
  */
-int hsh(info__t *info, char **av)
+int shellfunc(info__t *info, char **av)
 {
 	int b_res = 0;
 	ssize_t i_res = 0;
@@ -18,13 +18,13 @@ int hsh(info__t *info, char **av)
 		if (_interactive(info))
 			_puts("$ ");
 		_panicputchar(FLUSH_BUFFER);
-		i_res = get_input(info);
+		i_res = get_cmd(info);
 		if (i_res != -1)
 		{
 			set_info(info, av);
-			b_res = find_builtin(info);
+			b_res = locate_builtin(info);
 			if (b_res == -1)
-				find_cmd(info);
+				find_command(info);
 		}
 		else if (_interactive(info))
 			_putchar('\n');
@@ -44,7 +44,7 @@ int hsh(info__t *info, char **av)
 }
 
 /**
- * find_builtin - Search for a built-in command
+ * locate_builtin - Search for a built-in command
  * @inform: Pointer to the info__t structure
  *
  * Return:
@@ -54,7 +54,7 @@ int hsh(info__t *info, char **av)
  * -2 if the built-in command signals an exit()
  */
 
-int find_builtin(info__t *inform)
+int locate_builtin(info__t *inform)
 {
 	int a, ret = -1;
 	builtin_table builtintbl[] = {
@@ -80,12 +80,12 @@ int find_builtin(info__t *inform)
 }
 
 /**
- * find_cmd - finds a command in PATH string
+ * find_command - finds a command in PATH string
  * @inform: the parameter & return inform struct
  *
  * Return: void
  */
-void find_cmd(info__t *inform)
+void find_command(info__t *inform)
 {
 	char *path = NULL;
 	int a, b;
@@ -97,22 +97,22 @@ void find_cmd(info__t *inform)
 		inform->linecount_flag = 0;
 	}
 	for (a = 0, b = 0; inform->arg[a]; a++)
-		if (!is_delim(inform->arg[a], " \t\n"))
+		if (!is_delimiter(inform->arg[a], " \t\n"))
 			b++;
 	if (!b)
 		return;
 
-	path = find_path(inform, _getenv(inform, "PATH="), inform->argv[0]);
+	path = locate_path(inform, _getenv(inform, "PATH="), inform->argv[0]);
 	if (path)
 	{
 		inform->path = path;
-		fork_cmd(inform);
+		fork_command(inform);
 	}
 	else
 	{
 		if ((_interactive(inform) || _getenv(inform, "PATH=")
-			|| inform->argv[0][0] == '/') && is_cmd(inform, inform->argv[0]))
-			fork_cmd(inform);
+			|| inform->argv[0][0] == '/') && is_command(inform, inform->argv[0]))
+			fork_command(inform);
 		else if (*(inform->arg) != '\n')
 		{
 			inform->status = 127;
@@ -122,12 +122,12 @@ void find_cmd(info__t *inform)
 }
 
 /**
- * fork_cmd - forks a an exec thread to run cmd
+ * fork_command - forks a an exec thread to run cmd
  * @inform: the parameter & return inform struct
  *
  * Return: void
  */
-void fork_cmd(info__t *inform)
+void fork_command(info__t *inform)
 {
 	pid_t child_pid;
 

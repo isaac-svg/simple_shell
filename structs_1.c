@@ -1,12 +1,12 @@
 #include "shell.h"
 
 /**
- * list_len - Computes length of linked list
+ * get_len - Computes length of linked list
  * @head: pointer to head node
  *
  * Return: size of list
  */
-size_t list_len(const list__t *head)
+size_t get_len(const list__t *head)
 {
 	size_t cnt = 0;
 
@@ -28,7 +28,7 @@ char **list_to_strings(list__t *head)
 {
 	char **str_array;
 	char *str;
-	size_t list_size = list_len(head), index, j;
+	size_t list_size = get_len(head), index, j;
 	list__t *node = head;
 
 	if (!head || !list_size)

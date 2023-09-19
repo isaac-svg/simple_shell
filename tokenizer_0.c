@@ -21,7 +21,7 @@ char **strtow(char *str, char *delim)
 
 	for (a = 0; str[a] != '\0'; a++)
 	{
-		if (!is_delim(str[a], delim) && (is_delim(str[a + 1], delim) || !str[a + 1]))
+		if (!is_delimiter(str[a], delim) && (is_delimiter(str[a + 1], delim) || !str[a + 1]))
 			wordcount++;
 	}
 
@@ -34,11 +34,11 @@ char **strtow(char *str, char *delim)
 
 	for (a = 0, b = 0; b < wordcount; b++)
 	{
-		while (is_delim(str[a], delim))
+		while (is_delimiter(str[a], delim))
 			a++;
 
 		k = 0;
-		while (!is_delim(str[a + k], delim) && str[a + k])
+		while (!is_delimiter(str[a + k], delim) && str[a + k])
 			k++;
 
 		s[b] = malloc((k + 1) * sizeof(char));
