@@ -34,11 +34,11 @@ int _panicatoi(char *str)
 }
 
 /**
- * print_error - Prints an error message to stderr
+ * log_error - Prints an error message to stderr
  * @info: The parameter and return info struct.
  * @error_str: String containing the specified error type.
  */
-void print_error(info__t *info, char *error_str)
+void log_error(info__t *info, char *error_str)
 {
 	_panicputs(info->fname);
 	_panicputs(": ");

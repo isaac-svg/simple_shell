@@ -157,7 +157,7 @@ int _myalias(info__t *info);
 /* stdin, stdout, stderr functions */
 int _putchar(char c);
 void _puts(char *str);
-void print_error(info__t *info, char *str);
+void log_error(info__t *info, char *str);
 int _panicatoi(char *str);
 int print_d(int a, int b);
 int _panicputchar(char ec);

@@ -32,7 +32,7 @@ int _myexit(info__t *info)
 		if (exitstate == -1)
 		{
 			info->status = 2;
-			print_error(info, "Illegal number: ");
+			log_error(info, "Illegal number: ");
 			_panicputs(info->argv[1]);
 			_panicputchar('\n');
 			return (1);
@@ -82,7 +82,7 @@ int _mycd(info__t *info)
 		chdir_ret = chdir(info->argv[1]);
 	if (chdir_ret == -1)
 	{
-		print_error(info, "can't cd to ");
+		log_error(info, "can't cd to ");
 		_panicputs(info->argv[1]), _panicputchar('\n');
 	}
 	else
