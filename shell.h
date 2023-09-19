@@ -133,7 +133,7 @@ int is_delim(char c, char *str);
 int _isalpha(int a);
 int _interactive(info__t *);
 int loophsh(char **memblock);
-void remove_comments(char *);
+void remove_comments(char *comment);
 int _myunsetenv(info__t *info);
 ssize_t get_input(info__t *info);
 int replace_variables(info__t *info);
