@@ -143,10 +143,10 @@ int replace_alias(info__t *info);
 int is_chain(info__t *info, char *str, size_t *n);
 int _myexit(info__t *info);
 int _mycd(info__t *info);
-char *find_path(info__t *info, char *, char *);
+char *find_path(info__t *info, char *str1, char *str2);
 int _myenv(info__t *info);
 int _getline(info__t *info, char **, size_t *);
-void sigintHandler(int);
+void sigintHandler(int n);
 int _myhelp(info__t *info);
 int _myhistory(info__t *info);
 int _myalias(info__t *info);
@@ -172,27 +172,27 @@ int _putsfd(char *str, int fd);
 /* system helper functions */
 void fork_cmd(info__t *info);
 int find_builtin(info__t *info);
-int _setenv(info__t *info, char *, char *);
+int _setenv(info__t *info, char *str1, char *str2);
 void find_cmd(info__t *info);
-int is_cmd(info__t *info, char *);
-int _unsetenv(info__t *info, char *);
+int is_cmd(info__t *info, char *str);
+int _unsetenv(info__t *info, char *str);
 char **get_environ(info__t *info);
-int hsh(info__t *info, char **);
+int hsh(info__t *info, char **memblock);
 int populate_env_list(info__t *info);
 
 /* helper functions */
-char *_memset(char *, char, unsigned int);
+char *_memset(char *, char c, unsigned int);
 void ffree(char **);
-void *_realloc(void *, unsigned int, unsigned int);
+void *_realloc(void *, unsigned int a, unsigned int b);
 
-int bfree(void **);
+int bfree(void **memblock);
 
 
 /* history functions */
 char *get_history_file(info__t *inform);
 int write_history(info__t *inform);
 int read_history(info__t *inform);
-int build_history_list(info__t *inform, char *buf, int linecount);
+int create_history_list(info__t *inform, char *buffer, int linecount);
 int renumber_history(info__t *inform);
 
 
@@ -201,11 +201,9 @@ int renumber_history(info__t *inform);
 
 
 char *convert_number(long int a, int m, int n);
-
-
 void clear_info(info__t *info);
-void set_info(info__t *info, char **);
-void free_info(info__t *info, int);
+void set_info(info__t *info, char **memblock);
+void free_info(info__t *info, int a);
 
 
 
@@ -223,4 +221,4 @@ int print_alias(list__t *aliasNode);
 list__t *node_starts_with(list__t *cmdptr, char *str, char c);
 
 
-#endif /*SHELL_H*/
+#endif /* SHELL_H */

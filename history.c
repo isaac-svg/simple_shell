@@ -89,11 +89,11 @@ int read_history(info__t *inform)
 		if (buffer[idx] == '\n')
 		{
 			buffer[idx] = 0;
-			build_history_list(inform, buffer + last, line_count++);
+			create_history_list(inform, buffer + last, line_count++);
 			last = idx + 1;
 		}
 	if (last != idx)
-		build_history_list(inform, buffer + last, line_count++);
+		create_history_list(inform, buffer + last, line_count++);
 	free(buffer);
 	inform->histcount = line_count;
 	while (inform->histcount-- >= MAXIMUM_HISTORY)
@@ -103,14 +103,14 @@ int read_history(info__t *inform)
 }
 
 /**
- * build_history_list - adds entry to a history linked list
+ * create_history_list - adds entry to a history linked list
  * @inform: Structure containing potential arguments. Used to maintain
  * @buf: buffer
  * @linecount: the history linecount, histcount
  *
  * Return: Always 0
  */
-int build_history_list(info__t *info, char *line_buffer, int line_count)
+int create_history_list(info__t *info, char *line_buffer, int line_count)
 {
 	list__t *node = NULL;
 

@@ -33,7 +33,7 @@ ssize_t input_buf(info__t *inform, char **buffer, size_t *len)
 			}
 			inform->linecount_flag = 1;
 			remove_comments(*buffer);
-			build_history_list(inform, *buffer, inform->histcount++);
+			create_history_list(inform, *buffer, inform->histcount++);
 				*len = rd;
 				inform->cmd_buf = buffer;
 		}
