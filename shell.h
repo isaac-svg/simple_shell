@@ -131,7 +131,7 @@ char *_getenv(info__t *info, const char *);
 int _mysetenv(info__t *info);
 int is_delim(char c, char *str);
 int _isalpha(int a);
-int _interactive(info__t *);
+int _interactive(info__t *info);
 int loophsh(char **memblock);
 void remove_comments(char *comment);
 int _myunsetenv(info__t *info);
